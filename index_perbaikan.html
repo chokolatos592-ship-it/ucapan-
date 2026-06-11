@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untukmu, Temanku</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink-deep: #c0667a;
+    --pink-mid: #e8a0b0;
+    --pink-light: #fce8ed;
+    --pink-pale: #fff5f7;
+    --petal: #f9d0da;
+    --cream: #fffaf8;
+    --text-dark: #4a2030;
+    --text-mid: #7a4055;
+    --text-soft: #b07080;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text-dark);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── PETALS ── */
+  .petal-wrap {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .petal {
+    position: absolute; top: -60px;
+    width: 14px; height: 20px;
+    background: var(--petal);
+    border-radius: 60% 10% 60% 10%;
+    opacity: 0.6;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.7; }
+    50%  { transform: translateY(50vh) rotate(180deg) translateX(40px); }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); opacity: 0; }
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(170deg, #fff0f3 0%, #fce8ed 60%, #f9d0da 100%);
+  }
+
+  .heart-icon {
+    font-size: 3rem; line-height: 1;
+    color: var(--pink-deep);
+    animation: pulse 2s ease-in-out infinite;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.15); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 7vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--pink-deep);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--text-mid);
+    max-width: 380px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .btn-scroll {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border: 1.5px solid var(--pink-deep);
+    border-radius: 999px;
+    color: var(--pink-deep);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    transition: all 0.3s;
+    background: transparent;
+    cursor: pointer;
+  }
+  .btn-scroll:hover {
+    background: var(--pink-deep);
+    color: #fff;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative; z-index: 1;
+    padding: 5rem 1.5rem;
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--pink-mid);
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 400;
+    color: var(--text-dark);
+    margin-bottom: 3rem;
+  }
+
+  /* ── QUOTE SECTION ── */
+  #pesan {
+    background: var(--pink-pale);
+  }
+  .quote-card {
+    max-width: 620px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 1.5rem;
+    padding: 2.5rem 2.5rem 2rem;
+    border: 1px solid var(--petal);
+    position: relative;
+  }
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    line-height: 0.5;
+    color: var(--petal);
+    display: block;
+    margin-bottom: 1rem;
+    user-select: none;
+  }
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+  }
+  .quote-from {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--text-soft);
+    text-align: right;
+  }
+
+  /* ── ALASAN ── */
+  #alasan {
+    background: var(--cream);
+  }
+  .reasons-grid {
+    max-width: 700px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+  }
+  .reason-card {
+    background: var(--pink-pale);
+    border: 1px solid var(--petal);
+    border-radius: 1rem;
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+  }
+  .reason-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--pink-mid);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .reason-text {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+  .reason-text strong {
+    display: block;
+    font-weight: 400;
+    color: var(--text-dark);
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* ── GALERI ── */
+  #galeri {
+    background: var(--pink-pale);
+  }
+  .gallery-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .photo-slot {
+    aspect-ratio: 1;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 2px dashed var(--pink-mid);
+    background: #fff;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .photo-slot:hover { border-color: var(--pink-deep); transform: scale(1.02); }
+  .photo-slot img {
+    width: 100%; height: 100%; object-fit: cover;
+    position: absolute; inset: 0;
+    border-radius: 0.9rem;
+  }
+  .photo-slot .placeholder {
+    text-align: center;
+    color: var(--pink-mid);
+    pointer-events: none;
+  }
+  .photo-slot .placeholder span { font-size: 2.5rem; display: block; margin-bottom: 0.3rem; }
+  .photo-slot .placeholder p { font-size: 0.75rem; }
+  .photo-slot input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  .photo-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(74,32,48,0.6));
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 1rem 0.75rem 0.5rem;
+    text-align: center;
+    display: none;
+  }
+  .photo-slot:has(img) .photo-caption { display: block; }
+  .caption-input {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.9);
+    border: none; border-top: 1px solid var(--petal);
+    border-radius: 0 0 0.9rem 0.9rem;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-dark);
+    text-align: center;
+    display: none;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+  }
+  .photo-slot:has(img) .caption-input { display: block; }
+
+  /* ── PENUTUP ── */
+  #penutup {
+    background: linear-gradient(170deg, #f9d0da, #fce8ed);
+    text-align: center;
+  }
+  .closing-heart { font-size: 4rem; display: block; margin: 0 auto 1.5rem; animation: pulse 2s ease-in-out infinite; }
+  .closing-msg {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-style: italic;
+    color: var(--text-dark);
+    max-width: 480px;
+    margin: 0 auto 1rem;
+    line-height: 1.7;
+  }
+  .closing-sig {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── EDIT NAME OVERLAY ── */
+  .edit-tip {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99;
+    background: var(--pink-deep);
+    color: #fff;
+    padding: 0.6rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(192,102,122,0.4);
+    transition: background 0.2s;
+  }
+  .edit-tip:hover { background: var(--text-dark); }
+
+  .modal-bg {
+    display: none; position: fixed; inset: 0; z-index: 100;
+    background: rgba(74,32,48,0.45);
+    align-items: center; justify-content: center;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    width: min(90vw, 380px);
+    border: 1px solid var(--petal);
+  }
+  .modal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    margin-bottom: 1.25rem;
+  }
+  .modal label { display: block; font-size: 0.8rem; color: var(--text-mid); margin-bottom: 0.3rem; }
+  .modal input[type="text"], .modal textarea {
+    width: 100%; border: 1px solid var(--petal);
+    border-radius: 0.6rem; padding: 0.6rem 0.75rem;
+    font-family: 'Lato', sans-serif; font-size: 0.9rem;
+    color: var(--text-dark); margin-bottom: 1rem;
+    outline: none; transition: border-color 0.2s;
+  }
+  .modal textarea { height: 90px; resize: vertical; }
+  .modal input[type="text"]:focus, .modal textarea:focus { border-color: var(--pink-deep); }
+  .modal-footer { display: flex; gap: 0.75rem; justify-content: flex-end; }
+  .btn-save {
+    background: var(--pink-deep); color: #fff;
+    border: none; border-radius: 999px;
+    padding: 0.55rem 1.5rem; font-size: 0.85rem;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .btn-save:hover { background: var(--text-dark); }
+  .btn-cancel {
+    background: transparent; color: var(--text-mid);
+    border: 1px solid var(--petal); border-radius: 999px;
+    padding: 0.55rem 1.2rem; font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  @media (max-width: 480px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .reasons-grid { grid-template-columns: 1fr 1fr; }
+    .quote-card { padding: 1.75rem 1.25rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Falling petals -->
+<div class="petal-wrap" id="petals"></div>
+
+<!-- HERO -->
+<section id="hero">
+  <span class="heart-icon">♡</span>
+  <p class="hero-eyebrow">sebuah halaman kecil</p>
+  <h1 class="hero-title">Untuk <em id="hero-name">Kamu</em>,<br>Yang teman terbaik ku</h1>
+  <p class="hero-sub" id="hero-sub">Tidak ada kata yang cukup untuk menggambarkan betapa berartinya kamu bagiku. Tapi aku coba lewat halaman ini.</p>
+  <a class="btn-scroll" href="#pesan">Buka hadiah ↓</a>
+</section>
+
+<!-- PESAN CINTA -->
+<section id="pesan">
+  <p class="section-label">dari hatiku</p>
+  <h2 class="section-title">Sepatah Kata</h2>
+  <div class="quote-card">
+    <span class="quote-mark">"</span>
+    <p class="quote-text" id="quote-main">Bersamamu, setiap hari terasa lebih hangat dan setiap momen terasa lebih berarti. Kamu bukan hanya pacarku — kamu adalah alasan aku selalu ingin jadi versi terbaik dari diriku.</p>
+    <p class="quote-from" id="quote-from">— dengan cinta, <span id="sender-name">Aku</span></p>
+  </div>
+</section>
+
+<!-- ALASAN SAYANG -->
+<section id="alasan">
+  <p class="section-label">mengapa kamu</p>
+  <h2 class="section-title">Hal yang Kusuka darimu</h2>
+  <div class="reasons-grid" id="reasons-grid">
+    <!-- filled by JS -->
+  </div>
+</section>
+
+<!-- GALERI FOTO -->
+<section id="galeri">
+  <p class="section-label">kenangan kita</p>
+  <h2 class="section-title">Galeri Kita</h2>
+  <div class="gallery-grid" id="gallery-grid">
+    <!-- filled by JS -->
+  </div>
+</section>
+
+<!-- PENUTUP -->
+<section id="penutup">
+  <span class="closing-heart">♡</span>
+  <p class="closing-msg" id="closing-msg">"Terima kasih sudah hadir dan mengisi hari-hariku dengan kebahagiaan yang tulus."</p>
+  <p class="closing-sig">Selalu untukmu, <span id="closing-sender">Aku</span> ♡</p>
+</section>
+
+<!-- Edit button -->
+<button class="edit-tip" onclick="openModal()">✏ Edit nama & pesan</button>
+
+<!-- Modal -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h3>Personalisasi halaman ini</h3>
+    <label>Nama pacarmu</label>
+    <input type="text" id="inp-her" placeholder="Nama pacarmu..." maxlength="30">
+    <label>Namamu</label>
+    <input type="text" id="inp-me" placeholder="Namamu..." maxlength="30">
+    <label>Pesan cinta (boleh ganti)</label>
+    <textarea id="inp-quote">Bersamamu, setiap hari terasa lebih hangat dan setiap momen terasa lebih berarti. Kamu bukan hanya pacarku — kamu adalah alasan aku selalu ingin jadi versi terbaik dari diriku.</textarea>
+    <label>Pesan penutup</label>
+    <textarea id="inp-closing">Terima kasih sudah hadir dan mengisi hari-hariku dengan kebahagiaan yang tulus.</textarea>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Batal</button>
+      <button class="btn-save" onclick="saveNames()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── PETALS ──
+(function(){
+  const wrap = document.getElementById('petals');
+  const colors = ['#f9d0da','#fce8ed','#f2b8c6','#ffe0e8'];
+  for(let i = 0; i < 18; i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.animationDuration = (6 + Math.random()*8) + 's';
+    p.style.animationDelay = (Math.random()*10) + 's';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.width = (10 + Math.random()*10) + 'px';
+    p.style.height = (14 + Math.random()*12) + 'px';
+    p.style.opacity = 0.4 + Math.random()*0.4;
+    wrap.appendChild(p);
+  }
+})();
+
+// ── REASONS ──
+const reasonsData = [
+  { title: 'Senyummu', desc: 'Yang selalu berhasil membuat hariku jadi lebih cerah, tanpa gagal.' },
+  { title: 'Caramu peduli', desc: 'Kamu selalu tahu kapan aku butuh dukungan, bahkan tanpa aku bilang.' },
+  { title: 'Kejujuranmu', desc: 'Kamu selalu jujur, bahkan ketika itu hal yang sulit untuk dikatakan.' },
+  { title: 'Tawamu', desc: 'Suara tawamu adalah lagu favorit yang tidak pernah membosankan.' },
+];
+
+const grid = document.getElementById('reasons-grid');
+reasonsData.forEach((r, i) => {
+  grid.innerHTML += `<div class="reason-card">
+    <span class="reason-num">${String(i+1).padStart(2,'0')}</span>
+    <p class="reason-text"><strong>${r.title}</strong>${r.desc}</p>
+  </div>`;
+});
+
+// ── GALLERY ──
+const galleryGrid = document.getElementById('gallery-grid');
+const captions = ['Momen favoritku', 'Selalu bahagia bersamamu', 'Kenangan manis', 'Foto kita tercinta', 'Bersama selamanya'];
+for(let i = 0; i < 5; i++){
+  const slot = document.createElement('div');
+  slot.className = 'photo-slot';
+  slot.innerHTML = `
+    <div class="placeholder"><span>+</span><p>Tambah foto</p></div>
+    <input type="file" accept="image/*" onchange="loadPhoto(this)">
+    <div class="photo-caption" id="cap-show-${i}">${captions[i]}</div>
+    <input class="caption-input" id="cap-${i}" type="text" placeholder="${captions[i]}" value="${captions[i]}" oninput="document.getElementById('cap-show-${i}').textContent=this.value">
+  `;
+  galleryGrid.appendChild(slot);
+}
+
+function loadPhoto(input){
+  const reader = new FileReader();
+  reader.onload = e => {
+    const slot = input.parentElement;
+    let img = slot.querySelector('img');
+    if(!img){ img = document.createElement('img'); slot.insertBefore(img, slot.querySelector('.photo-caption')); }
+    img.src = e.target.result;
+    slot.querySelector('.placeholder').style.display = 'none';
+  };
+  if(input.files[0]) reader.readAsDataURL(input.files[0]);
+}
+
+// ── MODAL ──
+function openModal(){
+  const herName = document.getElementById('hero-name').textContent;
+  const senderName = document.getElementById('sender-name').textContent;
+  document.getElementById('inp-her').value = herName === 'Kamu' ? '' : herName;
+  document.getElementById('inp-me').value = senderName === 'Aku' ? '' : senderName;
+  document.getElementById('inp-quote').value = document.getElementById('quote-main').textContent.trim();
+  document.getElementById('inp-closing').value = document.getElementById('closing-msg').textContent.replace(/"/g,'').trim();
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+function saveNames(){
+  const her = document.getElementById('inp-her').value.trim() || 'Kamu';
+  const me = document.getElementById('inp-me').value.trim() || 'Aku';
+  const quote = document.getElementById('inp-quote').value.trim();
+  const closing = document.getElementById('inp-closing').value.trim();
+
+  document.getElementById('hero-name').textContent = her;
+  document.getElementById('sender-name').textContent = me;
+  document.getElementById('closing-sender').textContent = me;
+  if(quote) document.getElementById('quote-main').textContent = quote;
+  if(closing) document.getElementById('closing-msg').textContent = '"' + closing + '"';
+  closeModal();
+}
+
+// close modal on bg click
+document.getElementById('modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+</script>
+
+<div style="position:fixed;left:20px;bottom:20px;z-index:99">
+<button id="musicBtn" style="padding:10px 14px;border:none;border-radius:999px;cursor:pointer">
+🎵 Musik
+</button>
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+</div>
+<script>
+const musicBtn=document.getElementById('musicBtn');
+const bgMusic=document.getElementById('bgMusic');
+if(musicBtn){
+ musicBtn.onclick=()=>{
+   if(bgMusic.paused){bgMusic.play();musicBtn.textContent='⏸ Musik';}
+   else{bgMusic.pause();musicBtn.textContent='🎵 Musik';}
+ };
+}
+</script>
+</body>
+
+</html>
